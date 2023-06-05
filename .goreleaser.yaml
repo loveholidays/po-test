@@ -25,18 +25,18 @@ changelog:
     exclude:
       - '^docs:'
       - '^test:'
-brews:
-  -
-    name: po-test
-    tap:
-      owner: loveholidays
-      name: homebrew-tap
-    commit_author:
-      name: loveholidays
-      email: oss@loveholidays.com
-    folder: Formula
-    homepage: "https://github.com/loveholidays/po-test"
-    description: "CLI to run unit tests against prometheus-operator manifests"
-    install: |
-      bin.install "po-test"
-    license: "MIT"
+#brews:
+#  -
+#    name: po-test
+#    tap:
+#      owner: loveholidays
+#      name: homebrew-tap
+#    commit_author:
+#      name: loveholidays
+#      email: oss@loveholidays.com
+#    folder: Formula
+#    homepage: "https://github.com/loveholidays/po-test"
+#    description: "CLI to run unit tests against prometheus-operator manifests"
+#    install: |
+#      bin.install "po-test"
+#    license: "MIT"
