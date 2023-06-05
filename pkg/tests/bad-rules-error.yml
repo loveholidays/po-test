@@ -1,0 +1,14 @@
+# This is the rules file for bad-rules-error-test.yml.
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    prometheus: k8s
+    role: alert-rules
+  name: prometheus-rules
+spec:
+  groups:
+    - name: bad-example
+      rules:
+        - record: joined
+          expr: join_1 + on(a) join_2
