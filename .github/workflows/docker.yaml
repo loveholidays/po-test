@@ -1,18 +1,9 @@
 name: docker
 
 on:
-  workflow_dispatch:
   push:
-    branches:
-      - 'main'
     tags:
-      - "po-test-v*.*.*"
-    paths:
-      - po-test/**
-
-defaults:
-  run:
-    working-directory: po-test
+      - '*'
 
 jobs:
   docker:

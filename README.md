@@ -63,3 +63,7 @@ make build
 ```
 po-test test-file1.yaml test-file2.yaml ...
 ```
+
+
+## Releasing
+Pushing a tag to origin with a version number will run the github actions to release that version.

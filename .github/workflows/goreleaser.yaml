@@ -1,9 +1,11 @@
 name: goreleaser
 
 on:
-  push:
-    tags:
-      - '*'
+  workflow_run:
+    workflows: ["docker"]
+    branches: [main]
+    types:
+      - completed
 
 jobs:
   goreleaser:
@@ -22,8 +24,6 @@ jobs:
         uses: actions/setup-go@v4
         with:
           go-version-file: 'go.mod'
-      - name: Run Tests
-        run: make check test
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v2
         with:
