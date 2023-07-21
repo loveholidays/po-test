@@ -44,7 +44,7 @@ func RunUnitTests(testFiles []string) error {
 
 				originalRules = append(originalRules, &filenameAndData{relativeRulesFile, yamlFile})
 
-				err = os.WriteFile(relativeRulesFile, ruleFileContentWithoutMetadata, 0644)
+				err = os.WriteFile(relativeRulesFile, ruleFileContentWithoutMetadata, 0o600)
 				if err != nil {
 					return err
 				}
@@ -69,7 +69,7 @@ func RunUnitTests(testFiles []string) error {
 
 func restoreOriginalFiles(rules []*filenameAndData) {
 	for _, nameAndData := range rules {
-		err := os.WriteFile(nameAndData.filename, nameAndData.data, 0644)
+		err := os.WriteFile(nameAndData.filename, nameAndData.data, 0o600)
 		if err != nil {
 			log.Fatalf("Failed to write file: %v", err)
 		}
