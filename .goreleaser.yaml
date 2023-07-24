@@ -21,8 +21,7 @@ changelog:
       - '^docs:'
       - '^test:'
 brews:
-  -
-    name: po-test
+  - name: po-test
     tap:
       owner: loveholidays
       name: homebrew-tap
@@ -34,4 +33,4 @@ brews:
     description: "CLI to run unit tests against prometheus-operator manifests"
     install: |
       bin.install "po-test"
-    license: "MIT"
+    license: "LGPL-3.0-or-later"
