@@ -47,7 +47,7 @@ go get github.com/loveholidays/po-test
 
 ### Homebrew
 ```
-brew install loveholidays/taps/po-test
+brew install loveholidays/tap/po-test
 ```
 
 ### Linux
