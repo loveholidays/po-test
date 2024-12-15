@@ -39,23 +39,23 @@ Run this to install prometheus that will also provide promtool
 # go >= 1.17
 # Using `go get` to install binaries is deprecated.
 # The version suffix is mandatory.
-go install github.com/loveholidays/po-test@latest
+go install github.com/sahma19/po-test@latest
 
 # go < 1.17
-go get github.com/loveholidays/po-test
+go get github.com/sahma19/po-test
 ```
 
 ### Homebrew
 ```
-brew install loveholidays/tap/po-test
+brew install sahma19/tap/po-test
 ```
 
 ### Linux
-Grab the latest OS/Arch compatible binary from our [Releases](https://github.com/loveholidays/po-test/releases) page.
+Grab the latest OS/Arch compatible binary from our [Releases](https://github.com/sahma19/po-test/releases) page.
 
 ### From source
 ```bash
-git clone git@github.com:loveholidays/po-test.git
+git clone git@github.com:sahma19/po-test.git
 make build
 ```
 
