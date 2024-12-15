@@ -19,8 +19,9 @@ func RunUnitTests(testFiles []string) error {
 		}
 
 		var unitTestInp unitTestFile
-		if err := yaml.Unmarshal(b, &unitTestInp); err != nil {
-			return err
+		unmarshalErr := yaml.Unmarshal(b, &unitTestInp)
+		if unmarshalErr != nil {
+			return unmarshalErr
 		}
 
 		for _, rulesFile := range unitTestInp.RuleFiles {
@@ -32,22 +33,22 @@ func RunUnitTests(testFiles []string) error {
 			}
 
 			unstructured := make(map[interface{}]interface{})
-			err = yaml.Unmarshal(yamlFile, &unstructured)
-			if err != nil {
-				return err
+			unmarshalErr := yaml.Unmarshal(yamlFile, &unstructured)
+			if unmarshalErr != nil {
+				return unmarshalErr
 			}
 
 			if spec, found := unstructured["spec"]; found {
-				ruleFileContentWithoutMetadata, err := yaml.Marshal(spec)
-				if err != nil {
-					return err
+				ruleFileContentWithoutMetadata, marshalErr := yaml.Marshal(spec)
+				if marshalErr != nil {
+					return marshalErr
 				}
 
 				originalRules = append(originalRules, &filenameAndData{relativeRulesFile, yamlFile})
 
-				err = os.WriteFile(relativeRulesFile, ruleFileContentWithoutMetadata, 0o600)
-				if err != nil {
-					return err
+				writeErr := os.WriteFile(relativeRulesFile, ruleFileContentWithoutMetadata, 0o600)
+				if writeErr != nil {
+					return writeErr
 				}
 			} else {
 				log.Printf("No spec found in file %s", rulesFile)
