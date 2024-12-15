@@ -1,4 +1,4 @@
-FROM golang:1.20 as build
+FROM golang:1.23 as build
 
 RUN apt-get update && \
     apt-get install -y ca-certificates libssl-dev cpio
