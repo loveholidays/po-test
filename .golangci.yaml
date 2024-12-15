@@ -18,11 +18,11 @@ run:
   # additional setups like Postgres, Redis etc and are run separately.
   # (to be honest I don't find this useful but I have such tags)
   build-tags:
-    - integration
+    - integration 
 
   # Up to you, good for a big enough repo with no-Go code.
   skip-dirs:
-  # - src/external_libs
+    # - src/external_libs
 
   # When enabled linter will skip directories: vendor$, third_party$, testdata$, examples$, Godeps$, builtin$
   # Skipping `examples` sounds scary to me but skipping `testdata` sounds ok.
@@ -55,14 +55,14 @@ linters:
     # I prefer plane ASCII identifiers.
     # Symbol `∆` instead of `delta` looks cool but no thanks.
     - asciicheck
-
+    
     # Checks for dangerous unicode character sequences.
     # Super rare but why not to be a bit paranoid?
     - bidichk
 
     # Checks whether HTTP response body is closed successfully.
     - bodyclose
-
+    
     # Check whether the function uses a non-inherited context.
     - contextcheck
 
@@ -70,11 +70,11 @@ linters:
     - durationcheck
 
     # Forces to not skip error check.
-    - errcheck
+    - errcheck 
 
     # Checks `Err-` prefix for var and `-Error` suffix for error type.
     - errname
-
+    
     # Suggests to use `%w` for error-wrapping.
     - errorlint
 
@@ -91,9 +91,9 @@ linters:
     # Might not be that important but I prefer to keep all of them.
     # `gofumpt` is amazing, kudos to Daniel Marti https://github.com/mvdan/gofumpt
     - gofmt
-#    - gofumpt TODO do we want to enforce this? Then we should add to intellij style settings
-#    - goimports TODO do we want to enforce this? Then we should add to intellij style settings
-
+    - gofumpt
+    - goimports
+  
     # Allow or ban replace directives in go.mod
     # or force explanation for retract directives.
     - gomoddirectives
@@ -105,18 +105,18 @@ linters:
     # Linter that specializes in simplifying code.
     - gosimple
 
-    # Official Go tool. Must have.
+    # Official Go tool. Must have. 
     - govet
 
     # Detects when assignments to existing variables are not used
     # Last week I caught a bug with it.
     - ineffassign
-
+    
     # Even with deprecation notice I find it useful.
-    # There are situations when instead of io.ReaderCloser
+    # There are situations when instead of io.ReaderCloser 
     # I can use io.Reader. A small but good improvement.
-#    - interfacer
-
+    - interfacer
+    
     # Fix all the misspells, amazing thing.
     - misspell
 
@@ -125,11 +125,11 @@ linters:
 
     # Both require a bit more explicit returns.
     - nilerr
-#    - nilnil
-
+    - nilnil
+    
     # Finds sending HTTP request without context.Context.
     - noctx
-
+    
     # Forces comment why another check is disabled.
     # Better not to have //nolint: at all ;)
     - nolintlint
@@ -156,10 +156,10 @@ linters:
     # Somewhat similar to `bodyclose` but for `database/sql` package.
     - rowserrcheck
     - sqlclosecheck
-
+    
     # I have found that it's not the same as staticcheck binary :\
     - staticcheck
-
+    
     # Is a replacement for `golint`, similar to `revive`.
     - stylecheck
 
@@ -171,13 +171,13 @@ linters:
     - testableexamples
     - thelper
     - tparallel
-
+    
     # Remove unnecessary type conversions, make code cleaner
     - unconvert
 
     # Might be noisy but better to know what is unused
     - unparam
-
+    
     # Must have. Finds unused declarations.
     - unused
 
@@ -190,17 +190,17 @@ linters:
   disable:
     # Detects struct contained context.Context field. Not a problem.
     - containedctx
-
+    
     # Checks function and package cyclomatic complexity.
     # I can have a long but trivial switch-case.
     #
     # Cyclomatic complexity is a measurement, not a goal.
     # (c) Bryan C. Mills / https://github.com/bcmills
     - cyclop
-
+    
     # Abandoned, replaced by `unused`.
     - deadcode
-
+    
     # Check declaration order of types, consts, vars and funcs.
     # I like it but I don't use it.
     - decorder
@@ -211,19 +211,19 @@ linters:
 
     # Checks assignments with too many blank identifiers. Very rare.
     - dogsled
-
+    
     # Tool for code clone detection.
     - dupl
-
+    
     # Find duplicate words, rare.
     - dupword
 
     # I'm fine to check the error from json.Marshal ¯\_(ツ)_/¯
     - errchkjson
-
+    
     # All SQL queries MUST BE covered with tests.
     - execinquery
-
+    
     # Forces to handle more cases. Cool but noisy.
     - exhaustive
     - exhaustivestruct # Deprecated, replaced by check below.
@@ -231,16 +231,16 @@ linters:
 
     # Forbids some identifiers. I don't have a case for it.
     - forbidigo
-
+    
     # Finds forced type assertions, very good for juniors.
     - forcetypeassert
-
+    
     # I might have long but a simple function.
     - funlen
 
     # Imports order. I do this manually ¯\_(ツ)_/¯
     - gci
-
+    
     # I'm not a fan of ginkgo and gomega packages.
     - ginkgolinter
 
@@ -270,7 +270,7 @@ linters:
 
     # Reports magic consts. Might be noisy but still good.
     - gomnd
-
+   
     # Allowed/blocked packages to import. I prefer to do it manually.
     - gomodguard
 
@@ -282,7 +282,7 @@ linters:
 
     # Deprecated.
     - ifshort
-
+    
     # Checks imports aliases, rare.
     - importas
 
@@ -297,19 +297,19 @@ linters:
 
     # Some log checkers, might be useful.
     - loggercheck
-
+    
     # Maintainability index of each function, subjective.
     - maintidx
-
+   
     # Slice declarations with non-zero initial length. Not my case.
     - makezero
 
     # Deprecated. Use govet `fieldalignment`.
     - maligned
-
+    
     # Enforce tags in un/marshaled structs. Cool but not my case.
     - musttag
-
+    
     # Deeply nested if statements, subjective.
     - nestif
 
@@ -318,7 +318,7 @@ linters:
 
     # Reports all named returns, not that bad.
     - nonamedreturns
-
+    
     # Deprecated. Replaced by `revive`.
     - nosnakecase
 
@@ -327,7 +327,7 @@ linters:
 
     # I don't use t.Parallel() that much.
     - paralleltest
-
+    
     # Often non-`_test` package is ok.
     - testpackage
 
@@ -336,13 +336,13 @@ linters:
 
     # I'm fine with long variable names with a small scope.
     - varnamelen
-
+    
     # gofmt,gofumpt covers that (from what I know).
     - whitespace
 
     # Don't find it useful to wrap all errors from external packages.
     - wrapcheck
-
+    
     # Forces you to use empty lines. Great if configured correctly.
     # I mean there is an agreement in a team.
     - wsl
@@ -370,7 +370,7 @@ linters-settings:
 
     # Report skipped checks:`num, _ := strconv.Atoi(numStr)`.
     check-blank: true # Default: false
-
+    
     # Function to skip.
     exclude-functions:
       - io/ioutil.ReadFile
@@ -404,12 +404,12 @@ output:
   # (ref: https://github.com/golangci/golangci-lint/issues/3728)
   #
   # There are more formats which can be used on CI or by your IDE.
-#  format: line-number:lint.txt
+  format: line-number:lint.txt
 
   # I do not find this useful, parameter above already enables filepath
   # with a line and column. For me, it's easier to follow the path and
   # see the line in an IDE where I see more code and understand it better.
-#  print-issued-lines: false
+  print-issued-lines: false
 
   # Must have. Easier to understand the output.
   print-linter-name: true
@@ -431,14 +431,14 @@ issues:
   max-same-issues: 0
 
   # When set to `true` linter will analyze only new code which are
-  # not committed or after some specific revision. This is a cool
+  # not committed or after some specific revision. This is a cool 
   # feature when you're going to introduce linter into a big project.
-  # But I prefer going gradually package by package.
+  # But I prefer going gradually package by package. 
   # So, it's set to `false` to scan all code.
   new: false
 
   # 2 other params regarding git integration
-
+  
   # Even with a recent GPT-4 release I still believe that
   # I know better how to do my job and fix the suggestions.
   fix: false
