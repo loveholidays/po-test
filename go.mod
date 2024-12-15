@@ -1,6 +1,6 @@
 module github.com/loveholidays/po-test
 
-go 1.20
+go 1.23
 
 require (
 	github.com/onsi/ginkgo/v2 v2.22.0
