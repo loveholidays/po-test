@@ -12,60 +12,83 @@ import (
 
 func RunUnitTests(testFiles []string) error {
 	var originalRules []*filenameAndData
+
 	for _, testFile := range testFiles {
-		b, err := os.ReadFile(testFile)
+		unitTestInp, err := parseUnitTestFile(testFile)
 		if err != nil {
 			return err
 		}
 
-		var unitTestInp unitTestFile
-		unmarshalErr := yaml.Unmarshal(b, &unitTestInp)
-		if unmarshalErr != nil {
-			return unmarshalErr
-		}
-
 		for _, rulesFile := range unitTestInp.RuleFiles {
-			relativeRulesFile := fmt.Sprintf("%s/%s", filepath.Dir(testFile), rulesFile)
-
-			yamlFile, err := os.ReadFile(relativeRulesFile)
+			err := processRulesFile(testFile, rulesFile, &originalRules)
 			if err != nil {
 				return err
 			}
-
-			unstructured := make(map[interface{}]interface{})
-			unmarshalErr := yaml.Unmarshal(yamlFile, &unstructured)
-			if unmarshalErr != nil {
-				return unmarshalErr
-			}
-
-			if spec, found := unstructured["spec"]; found {
-				ruleFileContentWithoutMetadata, marshalErr := yaml.Marshal(spec)
-				if marshalErr != nil {
-					return marshalErr
-				}
-
-				originalRules = append(originalRules, &filenameAndData{relativeRulesFile, yamlFile})
-
-				writeErr := os.WriteFile(relativeRulesFile, ruleFileContentWithoutMetadata, 0o600)
-				if writeErr != nil {
-					return writeErr
-				}
-			} else {
-				log.Printf("No spec found in file %s", rulesFile)
-			}
 		}
 	}
 
-	promtoolArgs := append([]string{"test", "rules"}, testFiles...)
-	command := exec.Command("promtool", promtoolArgs...)
-	output, err := command.CombinedOutput()
-	if err != nil {
-		log.Printf("%s", output)
+	if err := runPromtoolTests(testFiles); err != nil {
 		restoreOriginalFiles(originalRules)
 		return err
 	}
-	log.Printf("%s", output)
+
 	restoreOriginalFiles(originalRules)
+	return nil
+}
+
+func parseUnitTestFile(testFile string) (*unitTestFile, error) {
+	b, err := os.ReadFile(testFile)
+	if err != nil {
+		return nil, err
+	}
+
+	var unitTestInp unitTestFile
+	if err := yaml.Unmarshal(b, &unitTestInp); err != nil {
+		return nil, err
+	}
+
+	return &unitTestInp, nil
+}
+
+func processRulesFile(testFile, rulesFile string, originalRules *[]*filenameAndData) error {
+	relativeRulesFile := fmt.Sprintf("%s/%s", filepath.Dir(testFile), rulesFile)
+
+	yamlFile, err := os.ReadFile(relativeRulesFile)
+	if err != nil {
+		return err
+	}
+
+	unstructured := make(map[interface{}]interface{})
+	if err := yaml.Unmarshal(yamlFile, &unstructured); err != nil {
+		return err
+	}
+
+	if spec, found := unstructured["spec"]; found {
+		ruleFileContentWithoutMetadata, err := yaml.Marshal(spec)
+		if err != nil {
+			return err
+		}
+
+		*originalRules = append(*originalRules, &filenameAndData{relativeRulesFile, yamlFile})
+
+		if err := os.WriteFile(relativeRulesFile, ruleFileContentWithoutMetadata, 0o600); err != nil {
+			return err
+		}
+	} else {
+		log.Printf("No spec found in file %s", rulesFile)
+	}
+
+	return nil
+}
+
+func runPromtoolTests(testFiles []string) error {
+	promtoolArgs := append([]string{"test", "rules"}, testFiles...)
+	command := exec.Command("promtool", promtoolArgs...)
+	output, err := command.CombinedOutput()
+	log.Printf("%s", output)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
