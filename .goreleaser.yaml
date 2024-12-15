@@ -23,13 +23,13 @@ changelog:
 brews:
   - name: po-test
     tap:
-      owner: loveholidays
+      owner: sahma19
       name: homebrew-tap
     commit_author:
-      name: loveholidays
-      email: oss@loveholidays.com
+      name: sahma19
+      email: shd@energinet.dk
     folder: Formula
-    homepage: "https://github.com/loveholidays/po-test"
+    homepage: "https://github.com/sahma19/po-test"
     description: "CLI to run unit tests against prometheus-operator manifests"
     install: |
       bin.install "po-test"
