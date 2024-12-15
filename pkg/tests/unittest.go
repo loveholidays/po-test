@@ -2,11 +2,12 @@ package tests
 
 import (
 	"fmt"
-	"gopkg.in/yaml.v2"
 	"log"
 	"os"
 	"os/exec"
 	"path/filepath"
+
+	"gopkg.in/yaml.v2"
 )
 
 func RunUnitTests(testFiles []string) error {
