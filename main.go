@@ -5,7 +5,6 @@ import (
 	"os"
 
 	"github.com/sahma19/po-test/pkg/tests"
-
 )
 
 func main() {
