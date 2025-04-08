@@ -33,3 +33,4 @@ jobs:
           context: "{{defaultContext}}"
           push: true
           tags: ghcr.io/loveholidays/po-test:${{ steps.current-job.outputs.VERSION }}
+          platforms: linux/amd64,linux/arm64
