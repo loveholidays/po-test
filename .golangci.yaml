@@ -79,7 +79,7 @@ linters:
     - errorlint
 
     # Checks for pointers to enclosing loop variables.
-    - exportloopref
+    #- exportloopref
 
     # As you already know I'm a co-author. It would be strange to not use
     # one of my warmly loved projects.
