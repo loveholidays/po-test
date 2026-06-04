@@ -20,7 +20,6 @@ Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 package tests
 
 import (
-	"fmt"
 	"gopkg.in/yaml.v2"
 	"log"
 	"os"
@@ -42,7 +41,7 @@ func RunUnitTests(testFiles []string) error {
 		}
 
 		for _, rulesFile := range unitTestInp.RuleFiles {
-			relativeRulesFile := fmt.Sprintf("%s/%s", filepath.Dir(testFile), rulesFile)
+			relativeRulesFile := filepath.Join(filepath.Dir(testFile), rulesFile)
 
 			yamlFile, err := os.ReadFile(relativeRulesFile)
 			if err != nil {
