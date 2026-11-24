@@ -1,8 +1,8 @@
-FROM golang:1.24 as build
+FROM golang:1.25 as build
 
 RUN apt-get update && \
     apt-get install -y ca-certificates libssl-dev cpio
-COPY --from=prom/prometheus /bin/promtool /go/bin/promtool
+COPY --from=prom/prometheus:v3.14.0 /bin/promtool /go/bin/promtool
 
 WORKDIR /app
 ADD . /app
@@ -12,7 +12,7 @@ RUN make check build
 FROM busybox
 
 COPY --from=build /app/bin/po-test /go/bin/po-test
-COPY --from=prom/prometheus /bin/promtool /go/bin/promtool
+COPY --from=prom/prometheus:v3.14.0 /bin/promtool /go/bin/promtool
 ENV PATH $PATH:/go/bin
 COPY --from=build /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 ENTRYPOINT ["/go/bin/po-test"]
